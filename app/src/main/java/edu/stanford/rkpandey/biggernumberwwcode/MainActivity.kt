@@ -12,10 +12,10 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+    private val instance_btnData: ButtonData = ButtonData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
             checkAnswer(false)
             assignNumbersToButtons()
         }
+
+        binding.layoutBtnData = instance_btnData;
     }
 
     private fun assignNumbersToButtons() {
@@ -39,14 +41,17 @@ class MainActivity : AppCompatActivity() {
             num2 = r.nextInt(10)
         }
         binding.apply {
-            btnLeft.text = "$num1"
-            binding.btnRight.text = "$num2"
+            //btnLeft.text = "$num1"
+            instance_btnData.buttonLeftValue = num1.toString()
+            //btnRight.text = "$num2"
+            layoutBtnData?.buttonRightValue = num2.toString()
+            invalidateAll()
         }
     }
 
     private fun checkAnswer(isLeftButtonSelected: Boolean) {
-        val n1 = binding.btnLeft.text.toString().toInt()
-        val n2 = binding.btnRight.text.toString().toInt()
+        val n1 = instance_btnData.buttonLeftValue.toInt()
+        val n2 = instance_btnData.buttonRightValue.toInt()
         val isAnswerCorrect = if (isLeftButtonSelected) n1 > n2 else n2 > n1
         val toastMessage: String
         val backgroundColor: Int
