@@ -1,5 +1,6 @@
 # adding DataBinding
 ## branches -> steps
+  0. master-branch
   1. update-gradle-layout-files
   2. add-data-class
   3. WIP
